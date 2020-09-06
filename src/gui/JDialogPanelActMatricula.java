@@ -6,6 +6,7 @@
 package gui;
 
 
+import estructural.Matricula;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -13,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import servicioWebEstudiante.Estudiante;
-import servicioWebMatriculas.Matricula;
+
 
 /**
  *

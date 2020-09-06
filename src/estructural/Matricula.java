@@ -1,5 +1,6 @@
 package estructural;
 
+import constantes.UtilitiesFunctions;
 import java.io.Serializable;
 import java.util.Date;
 import org.json.simple.JSONObject;
@@ -104,9 +105,9 @@ public class Matricula implements Serializable{
         JSONObject matricula = new JSONObject();
         matricula.put("codigo", "" + this.codigo);
         matricula.put("estado", "" + this.estado);
-        matricula.put("fechaFinal", this.fechaFinal.toString());
-        matricula.put("fechaInicio", this.fechaInicio.toString());
-        matricula.put("fechaInscripcion", this.fechaInscripcion.toString());
+        matricula.put("fechaFinal", ""+ UtilitiesFunctions.dateToGregorian(this.fechaFinal));
+        matricula.put("fechaInicio", ""+UtilitiesFunctions.dateToGregorian(this.fechaInicio));
+        matricula.put("fechaInscripcion", ""+UtilitiesFunctions.dateToGregorian(this.fechaInscripcion));
         matricula.put("notaDefinitiva", ""+ this.notaDefinitiva);
         matricula.put("pkEstudiante", ""+this.pkEstudiante);
         matricula.put("pkMateria", ""+this.pkMateria);

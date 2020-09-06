@@ -5,14 +5,16 @@
  */
 package gui;
 
+import constantes.RequestJson;
+import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.ServicioLocalMatricula;
+import peticiones.URLMatricula;
 import servicioWebEstudiante.Estudiante;
 import servicioWebMatriculas.Exception_Exception;
-import servicioWebMatriculas.Matricula;
 
 /**
  *
@@ -159,18 +161,17 @@ public class GUIPanelActMatricula extends javax.swing.JPanel {
             }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ser un formato valido de nota");
             }
-            try {
-                ServicioLocalMatricula.getServicio().actualizarMatricula(matricula);
+                RequestJson.sendRequest(matricula.toJSON(), URLMatricula.actualizarMatricula);
                 JOptionPane.showMessageDialog(this, "¡Se actualizó la matricula correctamente!");
                 try {
+                try {
                     padre.cambiarDatosTabla(0);
+                } catch (Exception_Exception ex) {
+                    Logger.getLogger(GUIPanelActMatricula.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 } catch (servicioWebMaterias.Exception_Exception ex) {
                     Logger.getLogger(GUIPanelActMatricula.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-            } catch (Exception_Exception ex) {
-                JOptionPane.showMessageDialog(this, "Ha ocurrido un error al actualizar la matricula");
-            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
