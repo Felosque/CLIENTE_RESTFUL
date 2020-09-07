@@ -19,6 +19,10 @@ import java.net.URL;
  */
 public class RequestJson {
 
+    public static final String POST = "POST";
+    public static final String GET = "GET";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
     
     public static int sendRequest(String obj, String pUrl, String pMethod){
             

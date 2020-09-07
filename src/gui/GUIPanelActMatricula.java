@@ -12,9 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.ServicioLocalMatricula;
-import peticiones.URLMatricula;
-import servicioWebEstudiante.Estudiante;
-import servicioWebMatriculas.Exception_Exception;
 
 /**
  *

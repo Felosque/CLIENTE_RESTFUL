@@ -17,7 +17,6 @@ import gui.GUIConstantes.TIPO_ACCION;
 import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.Date;
-import servicioWebEstudiante.Estudiante;
 
 /**
  *

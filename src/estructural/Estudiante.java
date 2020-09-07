@@ -150,6 +150,11 @@ public class Estudiante implements Serializable{
         String estudiante = gson.toJson(this);
         return estudiante;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "nombres=" + nombres + ", apellidos=" + apellidos + ", fechaNacimiento=" + fechaNacimiento + ", documentoIdentificacion=" + documentoIdentificacion + ", genero=" + genero + ", eps=" + eps + ", telefono=" + telefono + ", direccion=" + direccion + ", correo=" + correo + '}';
+    }
     
     public void actualizarTodaInformacion(Estudiante pEstudiante) throws Exception
     {

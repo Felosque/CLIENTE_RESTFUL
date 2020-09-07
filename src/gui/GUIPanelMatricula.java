@@ -24,10 +24,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
-import peticiones.URLMatricula;
-import servicioWebEstudiante.Estudiante;
-import servicioWebMaterias.Exception_Exception;
-import servicioWebMaterias.Materia;
 
 /**
  *

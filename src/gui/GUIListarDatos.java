@@ -25,10 +25,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import model.ServicioLocalEstudiante;
-import servicioWebEstudiante.Estudiante;
-import servicioWebEstudiante.Exception_Exception;
-import servicioWebEstudiante.ServicioEstudianteSW;
-import servicioWebEstudiante.ServicioEstudianteSW_Service;
 
 /**
  *

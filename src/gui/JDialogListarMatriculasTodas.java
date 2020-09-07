@@ -15,8 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalEstudiante;
 import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
-import servicioWebMatriculas.Exception_Exception;
-import servicioWebMatriculas.Matricula;
 
 /**
  *

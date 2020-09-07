@@ -13,7 +13,7 @@ import java.awt.Font;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import servicioWebEstudiante.Estudiante;
+
 
 
 /**

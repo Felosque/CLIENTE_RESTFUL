@@ -8,13 +8,12 @@ package model;
 import com.google.gson.Gson;
 import constantes.RequestJson;
 import constantes.UtilitiesFunctions;
+import estructural.Estudiante;
 import estructural.ListaMatricula;
 import estructural.Matricula;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Date;
-import peticiones.URLMatricula;
-
 /**
  *
  * @author Estudiantes
@@ -30,14 +29,35 @@ public class PruebasJson {
         Matricula matri = gson.fromJson(peti, Matricula.class);
         System.out.println("" + matri.toString());*/
         
+        Estudiante estu = new Estudiante();
+        try{
+            estu.setApellidos("Magno");
+            estu.setNombres("Felo");
+            estu.setCorreo("Fabelo@adsd.com");
+            estu.setDireccion("Mi CAllesita 31231");
+            estu.setDocumentoIdentificacion("222");
+            estu.setEps("Salud y vino");
+            estu.setGenero(1);
+            estu.setTelefono("111231");
+            estu.setFechaNacimiento("1998-09-30T05:00:00-05:00");
+        }catch(Exception ex){}
         
+        //System.out.println("" + ServicioLocalEstudiante.darEstudiantesPorNombre("AS"));
+        Estudiante estud = ServicioLocalEstudiante.buscarEstudiante(""+111);
+        System.out.println(""+estud.toString());
+        
+        //System.out.println("" + ServicioLocalMatricula.darMatriculaCodigo(""+45).toString());
+        
+        /* RECIBIR ARRAYLIST 
         ArrayList<Matricula> mat = ServicioLocalMatricula.darMatriculas();
-        System.out.println(""+ mat.size());
-        for (int i = 0; i < mat.size(); i++) {
-            System.out.println(""+mat.get(i).toString());
-        }
+        if(!mat.isEmpty()){
+            System.out.println(""+ mat.size());
+            for (int i = 0; i < mat.size(); i++) {
+                System.out.println(""+mat.get(i).toString());
+            }
+        }else{System.out.println("No hay datos");}*/
         
-        /* CONVIRTIENDO OBJETO EN JSON
+        /*CONVIRTIENDO OBJETO EN JSON
         Matricula er = new Matricula();
         er.setCodigo(42);
         er.setEstado(3);
@@ -46,9 +66,9 @@ public class PruebasJson {
         er.setFechaInscripcion("2021-09-30T05:00:00-05:00");
         er.setNotaDefinitiva(4.0);
         er.setPkEstudiante("333");
-        er.setPkMateria(1);
+        er.setPkMateria(3);
         
-        ServicioLocalMatricula.actualizarMatricula(er);*/
+        ServicioLocalMatricula.matricularEstudiante(er);*/
         
         //System.out.println(""+ er.toJSON());
         

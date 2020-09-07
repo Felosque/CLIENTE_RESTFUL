@@ -13,17 +13,19 @@ import java.util.ArrayList;
  */
 public class ListaMatricula {
 
-    private ArrayList<Matricula> Matricula;
-    
-    public ListaMatricula() {
-    }
+    private ArrayList<Matricula> matricula;
 
+    public ListaMatricula() {
+        this.matricula = new ArrayList<>();
+    }
+    
     public ArrayList<Matricula> getMatricula() {
-        return Matricula;
+        if(matricula == null) return new ArrayList<>();
+        else return matricula;
     }
 
     public void setMatricula(ArrayList<Matricula> Matricula) {
-        this.Matricula = Matricula;
+        this.matricula = Matricula;
     }
     
 }

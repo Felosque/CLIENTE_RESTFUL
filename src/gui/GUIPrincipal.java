@@ -16,12 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import model.ServicioLocalEstudiante;
-import model.ServicioLocalExtra;
 import model.ServicioLocalMatricula;
-import servicioWebEstudiante.Estudiante;
-import servicioWebEstudiante.Exception_Exception;
-import servicioWebMaterias.Materia;
-import servicioWebMatriculas.Matricula;
+
 
 /**
  *

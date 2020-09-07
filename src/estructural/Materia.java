@@ -1,4 +1,5 @@
 package estructural;
+import com.google.gson.Gson;
 import java.io.Serializable;
 
 public class Materia implements Serializable{
@@ -52,5 +53,19 @@ public class Materia implements Serializable{
     public void setIntensidadHoraria(double intensidadHoraria) {
         this.intensidadHoraria = intensidadHoraria;
     }
+
+    public String toJSON(){
+        Gson gson = new Gson();
+        String materia = gson.toJson(this);
+        return materia;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "Materia{" + "codigo=" + codigo + ", nombre=" + nombre + ", grado=" + grado + ", intensidadHoraria=" + intensidadHoraria + '}';
+    }
+    
+    
 
 }
