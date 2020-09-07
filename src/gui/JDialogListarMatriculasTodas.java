@@ -87,6 +87,8 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDatos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         jToolBar1.setRollover(true);
 
@@ -109,7 +111,7 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaDatos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 760, 370));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 760, 350));
 
         jButton1.setText("Actualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +119,11 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, -1, -1));
+
+        jLabel2.setText("Filtrar por estudiante (documento):");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 130, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -131,7 +137,9 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tablaDatos;
     // End of variables declaration//GEN-END:variables

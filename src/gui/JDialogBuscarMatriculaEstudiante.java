@@ -128,6 +128,8 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jcGrado = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDatos = new javax.swing.JTable();
@@ -158,10 +160,14 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
                 jcGradoItemStateChanged(evt);
             }
         });
-        jPanel1.add(jcGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 460, -1));
+        jPanel1.add(jcGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 170, -1));
 
-        jLabel2.setText("Filtrar por grado:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
+        jLabel2.setText("Filtrar por codigo:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
+
+        jLabel3.setText("Filtrar por grado:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 180, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 650, 50));
 
@@ -279,13 +285,9 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             int row = tablaDatos.getSelectedRow();
             String value = tablaDatos.getModel().getValueAt(row, column).toString();
             int codi = Integer.parseInt(value);
-            /*try {
-                //JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.getServicio().darMatriculaCodigo(codi), this);
-                //panelActMatricula.setVisible(true);
+            JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.darMatriculaCodigo(""+codi), this);
+            panelActMatricula.setVisible(true);
                 
-            } catch (Exception_Exception ex) {
-                Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
             
         }
     }//GEN-LAST:event_tablaDatosMouseClicked
@@ -293,11 +295,13 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBuscarEstudiante;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcGrado;
     private javax.swing.JTextField jtDoc;
     private javax.swing.JTextField jtNombre;
