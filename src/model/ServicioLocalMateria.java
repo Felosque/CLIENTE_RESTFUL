@@ -5,8 +5,6 @@
  */
 package model;
 
-import servicioWebMaterias.ServicioMateriaSW;
-import servicioWebMaterias.ServicioMateriaSW_Service;
 
 /**
  *
@@ -14,15 +12,10 @@ import servicioWebMaterias.ServicioMateriaSW_Service;
  */
 public class ServicioLocalMateria {
     
-    private static ServicioMateriaSW_Service servicio = new ServicioMateriaSW_Service();
-    private static ServicioMateriaSW servicioMateriaSW = servicio.getServicioMateriaSWPort();
-    
+
     private ServicioLocalMateria() {
     }
-    
-    public static ServicioMateriaSW getServicio(){
-        return servicioMateriaSW;
-    }
+
     
     
 }

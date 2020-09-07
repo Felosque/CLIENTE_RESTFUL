@@ -8,12 +8,11 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import constantes.RequestJson;
+import estructural.ListaMatricula;
 import estructural.Matricula;
 import java.util.ArrayList;
+import java.util.List;
 import peticiones.URLMatricula;
-import servicioWebMatriculas.ServicioMatriculaSW;
-import servicioWebMatriculas.ServicioMatriculaSW_Service;
-
 /**
  *
  * @author felip
@@ -72,8 +71,8 @@ public class ServicioLocalMatricula {
         String peticion = URLMatricula.darMatriculas;
         String matriculasJSON = RequestJson.recibirPeticion(peticion, "GET");
         Gson gson = new Gson();
-        ArrayList<Matricula> matriculas = gson.fromJson(matriculasJSON, new TypeToken<ArrayList<Matricula>>(){}.getType());
-        return matriculas;
+        ListaMatricula matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
+        return matriculas.getMatricula();
     }
     
     

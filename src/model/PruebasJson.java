@@ -8,7 +8,10 @@ package model;
 import com.google.gson.Gson;
 import constantes.RequestJson;
 import constantes.UtilitiesFunctions;
+import estructural.ListaMatricula;
 import estructural.Matricula;
+import java.time.Clock;
+import java.util.ArrayList;
 import java.util.Date;
 import peticiones.URLMatricula;
 
@@ -27,7 +30,14 @@ public class PruebasJson {
         Matricula matri = gson.fromJson(peti, Matricula.class);
         System.out.println("" + matri.toString());*/
         
-        // CONVIRTIENDO OBJETO EN JSON
+        
+        ArrayList<Matricula> mat = ServicioLocalMatricula.darMatriculas();
+        System.out.println(""+ mat.size());
+        for (int i = 0; i < mat.size(); i++) {
+            System.out.println(""+mat.get(i).toString());
+        }
+        
+        /* CONVIRTIENDO OBJETO EN JSON
         Matricula er = new Matricula();
         er.setCodigo(42);
         er.setEstado(3);
@@ -38,7 +48,7 @@ public class PruebasJson {
         er.setPkEstudiante("333");
         er.setPkMateria(1);
         
-        ServicioLocalMatricula.actualizarMatricula(er);
+        ServicioLocalMatricula.actualizarMatricula(er);*/
         
         //System.out.println(""+ er.toJSON());
         
