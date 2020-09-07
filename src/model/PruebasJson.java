@@ -5,10 +5,12 @@
  */
 package model;
 
+import com.google.gson.Gson;
 import constantes.RequestJson;
 import constantes.UtilitiesFunctions;
 import estructural.Matricula;
 import java.util.Date;
+import peticiones.URLMatricula;
 
 /**
  *
@@ -19,19 +21,37 @@ public class PruebasJson {
     
     public static void main(String[] args){
         
+        /* RECIBIENDO PETICIÓN JSON
         String peti = RequestJson.recibirPeticion("http://localhost:7101/ProyectoServiciosWeb/resources/serviciosWebMatricula/darMatriculaCodigo?codigo=33", "GET");
-        Matricula er = new Matricula();
-        er.setCodigo(1);
-        er.setEstado(1);
-        er.setFechaFinal("2020-09-30T05:00:00-05:00");
-        er.setFechaInicio("2020-09-30T05:00:00-05:00");
-        er.setFechaInscripcion("2020-09-30T05:00:00-05:00");
-        er.setNotaDefinitiva(2.0);
-        er.setPkEstudiante("111");
-        er.setPkMateria(1);
-        System.out.println(""+ er.toJSON());
+        Gson gson = new Gson();
+        Matricula matri = gson.fromJson(peti, Matricula.class);
+        System.out.println("" + matri.toString());*/
         
-        RequestJson.sendRequest(er.toJSON(), "");
+        // CONVIRTIENDO OBJETO EN JSON
+        Matricula er = new Matricula();
+        er.setCodigo(42);
+        er.setEstado(3);
+        er.setFechaFinal("2021-09-30T05:00:00-05:00");
+        er.setFechaInicio("2021-09-30T05:00:00-05:00");
+        er.setFechaInscripcion("2021-09-30T05:00:00-05:00");
+        er.setNotaDefinitiva(4.0);
+        er.setPkEstudiante("333");
+        er.setPkMateria(1);
+        
+        ServicioLocalMatricula.actualizarMatricula(er);
+        
+        //System.out.println(""+ er.toJSON());
+        
+        
+        
+        
+        /* ENVIADO PETICIÓN JSON
+        int estado = RequestJson.sendRequest(er.toJSON(), URLMatricula.matricularEstudiante);
+        if(estado == 204){
+            System.out.println("Se ha realizado correctamente");
+        }else{
+            System.out.println("Fallo todo ");
+        }*/
         
 //JSONParser parser = new JSONParser(peti, null, true)
         

@@ -1,5 +1,6 @@
 package estructural;
 
+import com.google.gson.Gson;
 import static constantes.UtilitiesFunctions.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -10,7 +11,7 @@ public class Estudiante implements Serializable{
     
     private String apellidos;
     
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     
     private String documentoIdentificacion;
     
@@ -24,7 +25,7 @@ public class Estudiante implements Serializable{
     
     private String correo;
 
-    public Estudiante(String nombres, String apellidos, Date fechaNacimiento, String documentoIdentificacion, int rH, String eps, String telefonoAcudiente, String direccion, String correo) {
+    public Estudiante(String nombres, String apellidos, String fechaNacimiento, String documentoIdentificacion, int rH, String eps, String telefonoAcudiente, String direccion, String correo) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
@@ -63,17 +64,11 @@ public class Estudiante implements Serializable{
         this.apellidos = pApellidos;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date pFechaN) throws Exception {
-        if(pFechaN == null){
-            throw new Exception("�Debe seleccionar una fecha de nacimiento valida!");
-        }
-        if(pFechaN.after(sumarRestarAnosDate(new Date(), -EDAD_MINIMA_REGISTRO))){
-            throw new Exception("�No se puede matricular un estudiante menor a 5 a�os!\nVerifique la fecha de nacimiento.");
-        }
+    public void setFechaNacimiento(String pFechaN) throws Exception {
         this.fechaNacimiento = pFechaN;
     }
 
@@ -148,6 +143,12 @@ public class Estudiante implements Serializable{
             }
             this.correo = correo;
         }
+    }
+    
+    public String toJSON(){
+        Gson gson = new Gson();
+        String estudiante = gson.toJson(this);
+        return estudiante;
     }
     
     public void actualizarTodaInformacion(Estudiante pEstudiante) throws Exception

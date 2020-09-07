@@ -20,20 +20,21 @@ import java.net.URL;
 public class RequestJson {
 
     
-    public static int sendRequest(String obj, String pUrl){
+    public static int sendRequest(String obj, String pUrl, String pMethod){
             
         try {
             URL url = new URL(pUrl);
             
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             System.out.println("CONEXÓN REALIZADA");
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod(pMethod);
             conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             conn.setRequestProperty("Accept", "application/json");
             conn.setDoOutput(true);
-            
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(obj);
+            if(obj != null){
+                wr.write(obj);
+            }
             wr.flush();
             System.out.println("JSON ENVIADO");
             

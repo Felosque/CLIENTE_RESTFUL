@@ -15,6 +15,7 @@ public class URLMatricula {
     
     public static final String matricularEstudiante = defaultURL + "matricularEstudiante";
     public static final String darMatriculas = defaultURL + "darMatriculas";
+    public static final String darMatriculasEstudiante = defaultURL + "darMatriculasEstudiante";
     public static final String darMatriculasPorFecha = defaultURL + "darMatriculasPorFecha";
     public static final String darCantidadMateriasPorGradoCursado = defaultURL + "darCantidadMateriasPorGradoCursado";
     public static final String actualizarMatricula = defaultURL + "actualizarMatricula";
