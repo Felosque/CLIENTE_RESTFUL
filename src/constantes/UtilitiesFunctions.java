@@ -5,9 +5,12 @@
  */
 package constantes;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -100,5 +103,13 @@ public class UtilitiesFunctions {
         return timestamp;
     }
     
-    
+    public static Date gregorianStringToDate(String sDate) { 
+        try {
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(sDate);
+            return gregorianToDate(xmlGregorianCalendar);
+        } catch (DatatypeConfigurationException ex) {
+            Logger.getLogger(UtilitiesFunctions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

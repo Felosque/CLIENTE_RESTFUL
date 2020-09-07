@@ -294,13 +294,13 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             int row = tablaDatos.getSelectedRow();
             String value = tablaDatos.getModel().getValueAt(row, column).toString();
             int codi = Integer.parseInt(value);
-            try {
-                JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.getServicio().darMatriculaCodigo(codi), this);
-                panelActMatricula.setVisible(true);
+            /*try {
+                //JDialogPanelActMatricula panelActMatricula = new JDialogPanelActMatricula(estudiante, ServicioLocalMatricula.getServicio().darMatriculaCodigo(codi), this);
+                //panelActMatricula.setVisible(true);
                 
             } catch (Exception_Exception ex) {
                 Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
             
         }
     }//GEN-LAST:event_tablaDatosMouseClicked

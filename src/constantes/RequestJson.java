@@ -12,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -21,7 +20,7 @@ import org.json.simple.JSONObject;
 public class RequestJson {
 
     
-    public static int sendRequest(JSONObject obj, String pUrl){
+    public static int sendRequest(String obj, String pUrl){
             
         try {
             URL url = new URL(pUrl);
@@ -34,7 +33,7 @@ public class RequestJson {
             conn.setDoOutput(true);
             
             OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-            wr.write(obj.toString());
+            wr.write(obj);
             wr.flush();
             System.out.println("JSON ENVIADO");
             
@@ -63,4 +62,47 @@ public class RequestJson {
         }
         return -1;
     } 
+    
+    
+    public static String recibirPeticion(String pUrl, String pMethod){
+        
+        try{
+            URL url = new URL(pUrl);
+            
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            System.out.println("CONEXÓN REALIZADA");
+            conn.setRequestMethod(pMethod);
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            
+            StringBuilder sb = new StringBuilder();  
+            int HttpResult = conn.getResponseCode(); 
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(conn.getInputStream(), "utf-8"));
+                String line = null;  
+                while ((line = br.readLine()) != null) {  
+                    sb.append(line + "\n");  
+                }
+                br.close();
+                System.out.println("" + sb.toString());
+                return sb.toString();
+            } else {
+                System.out.println(conn.getResponseMessage());  
+            }  
+            
+
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        }catch (IOException ex) {
+               ex.printStackTrace();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        
+        return null;
+    }
+    
+    
 }

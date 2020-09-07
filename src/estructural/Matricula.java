@@ -1,38 +1,56 @@
 package estructural;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import constantes.UtilitiesFunctions;
+import static constantes.UtilitiesFunctions.gregorianStringToDate;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.json.simple.JSONObject;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 public class Matricula implements Serializable{
     
     private int codigo;
     
-    private String pkEstudiante;
+    private int estado;
     
-    private int pkMateria;
+    private String fechaFinal;
     
-    private Date fechaInscripcion;
+    private String fechaInicio;
     
-    private Date fechaInicio;
-    
-    private Date fechaFinal;
+    private  String fechaInscripcion;
     
     private double notaDefinitiva;
     
-    private int estado;
+    private String pkEstudiante;
+    
+    private int pkMateria; 
 
-    public Matricula(int pCodigo, String pkEstudiante, int pkMateria, Date fechaInscripcion, Date fechaInicio, Date fechaFinal, double notaDefinitiva, int estado) {
-        this.codigo = pCodigo;
+    public Matricula(int codigo, int estado, String fechaFinal, String fechaInicio, String fechaInscripcion, double notaDefinitiva, String pkEstudiante, int pkMateria) {
+        this.codigo = codigo;
+        this.estado = estado;
+        this.fechaFinal = fechaFinal;
+        this.fechaInicio = fechaInicio;
+        this.fechaInscripcion = fechaInscripcion;
+        this.notaDefinitiva = notaDefinitiva;
         this.pkEstudiante = pkEstudiante;
         this.pkMateria = pkMateria;
-        this.fechaInscripcion = fechaInscripcion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinal = fechaFinal;
-        this.notaDefinitiva = notaDefinitiva;
-        this.estado = estado;
     }
+ 
+    
+    
+    /*public Matricula(JSONObject obj){
+        codigo = (int) obj.get("codigo");
+        estado = (int) obj.get("estado");
+        fechaFinal = gregorianStringToDate((String) obj.get("fechaFinal"));
+        fechaInicio = gregorianStringToDate((String) obj.get("fechaInicio"));
+        fechaInscripcion = gregorianStringToDate((String) obj.get("fechaInscripcion"));
+        notaDefinitiva = (double) obj.get("notaDefinitiva");
+        pkEstudiante = (String) obj.get("estado");
+        pkMateria = (int) obj.get("estado");
+    }*/
 
     public Matricula() {
     }
@@ -61,29 +79,7 @@ public class Matricula implements Serializable{
         this.pkMateria = pkMateria;
     }
 
-    public Date getFechaInscripcion() {
-        return fechaInscripcion;
-    }
-
-    public void setFechaInscripcion(Date fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public Date getFechaFinal() {
-        return fechaFinal;
-    }
-
-    public void setFechaFinal(Date fechaFinal) {
-        this.fechaFinal = fechaFinal;
-    }
+    
 
     public double getNotaDefinitiva() {
         return notaDefinitiva;
@@ -100,20 +96,37 @@ public class Matricula implements Serializable{
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public String getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+
+    public void setFechaInscripcion(String fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
+    }
+
+    public String getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(String fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public String getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(String fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
     
-    public JSONObject toJSON(){
-        JSONObject matricula = new JSONObject();
-        matricula.put("codigo", "" + this.codigo);
-        matricula.put("estado", "" + this.estado);
-        matricula.put("fechaFinal", ""+ UtilitiesFunctions.dateToGregorian(this.fechaFinal));
-        matricula.put("fechaInicio", ""+UtilitiesFunctions.dateToGregorian(this.fechaInicio));
-        matricula.put("fechaInscripcion", ""+UtilitiesFunctions.dateToGregorian(this.fechaInscripcion));
-        matricula.put("notaDefinitiva", ""+ this.notaDefinitiva);
-        matricula.put("pkEstudiante", ""+this.pkEstudiante);
-        matricula.put("pkMateria", ""+this.pkMateria);
-        System.out.print(matricula.toJSONString());
+    public String toJSON(){
+        Gson gson = new Gson();
+        String matricula = gson.toJson(this);
         return matricula;
     }
+    
 
     @Override
     public String toString() {

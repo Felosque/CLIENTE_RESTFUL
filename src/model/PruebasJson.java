@@ -5,14 +5,10 @@
  */
 package model;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import org.apache.hc.core5.http.HttpResponse;
-import org.apache.hc.core5.http.io.entity.StringEntity;
-import org.json.simple.JSONObject;
-import sun.net.www.http.HttpClient;
+import constantes.RequestJson;
+import constantes.UtilitiesFunctions;
+import estructural.Matricula;
+import java.util.Date;
 
 /**
  *
@@ -23,7 +19,23 @@ public class PruebasJson {
     
     public static void main(String[] args){
         
-        try {
+        String peti = RequestJson.recibirPeticion("http://localhost:7101/ProyectoServiciosWeb/resources/serviciosWebMatricula/darMatriculaCodigo?codigo=33", "GET");
+        Matricula er = new Matricula();
+        er.setCodigo(1);
+        er.setEstado(1);
+        er.setFechaFinal("2020-09-30T05:00:00-05:00");
+        er.setFechaInicio("2020-09-30T05:00:00-05:00");
+        er.setFechaInscripcion("2020-09-30T05:00:00-05:00");
+        er.setNotaDefinitiva(2.0);
+        er.setPkEstudiante("111");
+        er.setPkMateria(1);
+        System.out.println(""+ er.toJSON());
+        
+        RequestJson.sendRequest(er.toJSON(), "");
+        
+//JSONParser parser = new JSONParser(peti, null, true)
+        
+        /*try {
             JSONObject obj = new JSONObject();
             obj.put("codigo", "" + new Integer(1));
             obj.put("estado", "" + new Integer(1));
@@ -61,5 +73,6 @@ public class PruebasJson {
             ex.printStackTrace();
         }
         
+    }*/
     }
 }
