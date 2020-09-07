@@ -9,6 +9,8 @@ import com.toedter.calendar.JDateChooser;
 import constantes.RequestJson;
 import constantes.UtilitiesFunctions;
 import static constantes.UtilitiesFunctions.dateToGregorian;
+import estructural.Estudiante;
+import estructural.Materia;
 import estructural.Matricula;
 import java.awt.Color;
 import java.rmi.RemoteException;
@@ -17,9 +19,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.input.DataFormat;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalMateria;
@@ -81,7 +81,7 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
         mostrarOcultarEstudiante(true);
     }
     
-    private void cambiarDatosTabla(int pGrado) throws Exception_Exception{
+    private void cambiarDatosTabla(int pGrado) {
         
         if(estudiante == null) { 
             JOptionPane.showMessageDialog(this, "¡Debe seleccionar primero un estudiante para matricularlo!");
@@ -92,7 +92,7 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
             modelo.getDataVector().removeAllElements();
             revalidate();
 
-            materias = (ArrayList<Materia>) ServicioLocalMateria.getServicio().darMateriasPorGrado(pGrado);
+            materias = (ArrayList<Materia>) ServicioLocalMateria.darMateriasPorGrado(""+pGrado);
 
             for (int i = 0; i < materias.size(); i++) {
                 Vector fila = new Vector();
@@ -226,13 +226,10 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
     }//GEN-LAST:event_jtNombreActionPerformed
 
     private void jcGradosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcGradosItemStateChanged
-        try {
-            if(jcGrados.getSelectedIndex() != 0){
-                System.out.println(jcGrados.getSelectedIndex());
-                cambiarDatosTabla(jcGrados.getSelectedIndex());
-            }
-        } catch (Exception_Exception ex) {
-            Logger.getLogger(GUIPanelMatricula.class.getName()).log(Level.SEVERE, null, ex);
+
+        if(jcGrados.getSelectedIndex() != 0){
+            System.out.println(jcGrados.getSelectedIndex());
+            cambiarDatosTabla(jcGrados.getSelectedIndex());
         }
     }//GEN-LAST:event_jcGradosItemStateChanged
 
@@ -249,16 +246,15 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
                 matricula.setCodigo(0);
                 matricula.setPkEstudiante(estudiante.getDocumentoIdentificacion());
                 matricula.setPkMateria(materias.get(i).getCodigo());
-                matricula.setFechaInscripcion(new Date());
-                matricula.setFechaInicio(jdFechaInicio.getDate());
-                matricula.setFechaFinal(jdFechaFin.getDate());
+                matricula.setFechaInscripcion(dateToGregorian(new Date()).toString());
+                matricula.setFechaInicio(dateToGregorian(jdFechaInicio.getDate()).toString());
+                matricula.setFechaFinal(dateToGregorian(jdFechaFin.getDate()).toString());
                 matricula.setEstado(1);
                 matricula.setNotaDefinitiva(0.0);
                 
-                int respuesta = RequestJson.sendRequest( matricula.toJSON(), URLMatricula.matricularEstudiante );
+                int respuesta = ServicioLocalMatricula.matricularEstudiante(matricula);
                 if(respuesta != 204){
                     JOptionPane.showMessageDialog(this, "Error al matricular: ");
-            
                 }
             }
             JOptionPane.showMessageDialog(this, "Se ha matriculado el estudiante: "+ estudiante.getNombres() + " " + estudiante.getApellidos() + " en el grado: "+ jcGrados.getSelectedIndex());
@@ -269,12 +265,8 @@ public class GUIPanelMatricula extends javax.swing.JPanel {
 
     private void btBuscarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarEstudianteActionPerformed
         JDialogBuscarEstudiante busqueda;
-        try {
-            busqueda = new JDialogBuscarEstudiante(this, 1);
-            busqueda.setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(GUIPanelMatricula.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        busqueda = new JDialogBuscarEstudiante(this, 1);
+        busqueda.setVisible(true);
     }//GEN-LAST:event_btBuscarEstudianteActionPerformed
 
 

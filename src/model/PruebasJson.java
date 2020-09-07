@@ -10,6 +10,7 @@ import constantes.RequestJson;
 import constantes.UtilitiesFunctions;
 import estructural.Estudiante;
 import estructural.ListaMatricula;
+import estructural.Materia;
 import estructural.Matricula;
 import java.time.Clock;
 import java.util.ArrayList;
@@ -29,6 +30,11 @@ public class PruebasJson {
         Matricula matri = gson.fromJson(peti, Matricula.class);
         System.out.println("" + matri.toString());*/
         
+        //Materia materias = ServicioLocalMateria.darMateriaPorCodigo(""+1);
+        //System.out.println("" + materias.toString());
+        ///System.out.println("" + ServicioLocalMateria.darMaterias());
+        
+        /*
         Estudiante estu = new Estudiante();
         try{
             estu.setApellidos("Magno");
@@ -44,7 +50,7 @@ public class PruebasJson {
         
         //System.out.println("" + ServicioLocalEstudiante.darEstudiantesPorNombre("AS"));
         Estudiante estud = ServicioLocalEstudiante.buscarEstudiante(""+111);
-        System.out.println(""+estud.toString());
+        System.out.println(""+estud.toString());*/
         
         //System.out.println("" + ServicioLocalMatricula.darMatriculaCodigo(""+45).toString());
         

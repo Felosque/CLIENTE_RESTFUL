@@ -6,6 +6,7 @@
 package gui;
 
 
+import estructural.Estudiante;
 import estructural.Matricula;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

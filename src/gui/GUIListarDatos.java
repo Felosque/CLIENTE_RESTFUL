@@ -7,6 +7,7 @@ package gui;
 
 
 import constantes.UtilitiesFunctions;
+import estructural.Estudiante;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JPanel;
@@ -43,11 +44,7 @@ public class GUIListarDatos extends JPanel implements KeyListener{
     public GUIListarDatos(GUIPrincipal gui){
         
         this.principal = gui;
-        try {
-            crearTabla(ServicioLocalEstudiante.getServicio().darEstudiantes());
-        } catch (Exception_Exception ex) {
-            Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        crearTabla(ServicioLocalEstudiante.darEstudiantes());
         setBorder(BorderFactory.createTitledBorder(""));
         //this.setBackground(new Color(0, 0, 0));
         setLayout(null);
@@ -142,11 +139,7 @@ public class GUIListarDatos extends JPanel implements KeyListener{
         try {
             
             List<Estudiante> est = new ArrayList<Estudiante>();
-            try {
-                est = ServicioLocalEstudiante.getServicio().darEstudiantesPorNombre(busqueda.getText());
-            } catch (Exception_Exception ex) {
-                Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            est = ServicioLocalEstudiante.darEstudiantesPorNombre(busqueda.getText());
             cambiarDatosTabla((ArrayList<Estudiante>) est);
         } catch (Exception ex) {
             Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);

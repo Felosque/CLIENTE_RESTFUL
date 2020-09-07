@@ -5,6 +5,8 @@
  */
 package gui;
 
+import estructural.Estudiante;
+import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -65,7 +67,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         btBuscarEstudiante.setVisible(!pPam);
     }
     
-    public void actualizarInformacion(Estudiante pEst) throws Exception_Exception, servicioWebMaterias.Exception_Exception{
+    public void actualizarInformacion(Estudiante pEst){
         estudiante = pEst;
         mostrarOcultarInfo(true);
         jtDoc.setText(estudiante.getDocumentoIdentificacion());
@@ -73,7 +75,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
         cambiarDatosTabla(0);
     }
     
-    public void cambiarDatosTabla(int pGrado) throws Exception_Exception, servicioWebMaterias.Exception_Exception{
+    public void cambiarDatosTabla(int pGrado){
         
         if(estudiante == null){
             JOptionPane.showMessageDialog(this, "¡Debes de buscar primero un estudiante para ver la información!");
@@ -83,14 +85,14 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             revalidate();
             
             if(pGrado != 0){
-                matriculas = (ArrayList<Matricula>)ServicioLocalMatricula.getServicio().darMatriculasEstudianteGrado(estudiante.getDocumentoIdentificacion(), pGrado);
+                matriculas = (ArrayList<Matricula>)ServicioLocalMatricula.darMatriculasEstudianteGrado(estudiante.getDocumentoIdentificacion(), ""+pGrado);
             }else{
-                matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.getServicio().darMatriculasEstudiante(estudiante.getDocumentoIdentificacion());
+                matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.darMatriculasEstudiante(estudiante.getDocumentoIdentificacion());
             }
             for (int i = 0; i < matriculas.size(); i++) {
                 Vector fila = new Vector();
                 fila.add(matriculas.get(i).getCodigo());
-                fila.add(ServicioLocalMateria.getServicio().darMateriaPorCodigo(matriculas.get(i).getPkMateria()).getNombre());
+                fila.add(ServicioLocalMateria.darMateriaPorCodigo(""+matriculas.get(i).getPkMateria()).getNombre());
                 fila.add(matriculas.get(i).getNotaDefinitiva());
                 fila.add(matriculas.get(i).getFechaInscripcion());
                 fila.add(matriculas.get(i).getFechaInicio());
@@ -243,25 +245,15 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcGradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcGradoItemStateChanged
-        try {
-            try {
-                cambiarDatosTabla(jcGrado.getSelectedIndex());
-            } catch (servicioWebMaterias.Exception_Exception ex) {
-                Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (Exception_Exception ex) {
-            Logger.getLogger(GUIPanelMatricula.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        cambiarDatosTabla(jcGrado.getSelectedIndex());
     }//GEN-LAST:event_jcGradoItemStateChanged
 
     private void btBuscarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarEstudianteActionPerformed
-        try {
-            JDialogBuscarEstudiante busqueda = new JDialogBuscarEstudiante(null, 2);
-            busqueda.ponerPadreFrame(this);
-            busqueda.setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        JDialogBuscarEstudiante busqueda = new JDialogBuscarEstudiante(null, 2);
+        busqueda.ponerPadreFrame(this);
+        busqueda.setVisible(true);
     }//GEN-LAST:event_btBuscarEstudianteActionPerformed
 
     private void tablaDatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosMouseClicked
@@ -274,16 +266,12 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             String info = "¿Seguro que desea eliminar la matricula de " + nom + " - CODIGO: "+ value;
             int select = JOptionPane.showOptionDialog(this, info, "IMPORTANTE", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, 1);
             if(select == 0){
-                try {
-                    int codi = Integer.parseInt(value);
-                    System.out.println(codi);
-                    ServicioLocalMatricula.getServicio().borrarMatriculaCodigo(codi);
-                    DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
-                    modelo.removeRow(row);
-                    JOptionPane.showMessageDialog(this, "¡Se ha borrado el matricula correctamente!");
-                } catch (Exception_Exception ex) {
-                    Logger.getLogger(JDialogBuscarMatriculaEstudiante.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                int codi = Integer.parseInt(value);
+                System.out.println(codi);
+                ServicioLocalMatricula.borrarMatriculaCodigo(""+codi);
+                DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
+                modelo.removeRow(row);
+                JOptionPane.showMessageDialog(this, "¡Se ha borrado el matricula correctamente!");
             }
             
         } else if(modo == 2){ //Actualizar

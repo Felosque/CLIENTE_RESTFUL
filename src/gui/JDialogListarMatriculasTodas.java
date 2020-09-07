@@ -5,6 +5,7 @@
  */
 package gui;
 
+import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -25,7 +26,7 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
     /**
      * Creates new form JDialogListarMatriculasTodas
      */
-    public JDialogListarMatriculasTodas() throws Exception_Exception {
+    public JDialogListarMatriculasTodas(){
         initComponents();
         cambiarDatosTabla();
         setTitle("Lista de matriculas");
@@ -35,13 +36,13 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
     }
 
     
-    private void cambiarDatosTabla() throws Exception_Exception{
+    private void cambiarDatosTabla(){
 
         DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
         modelo.getDataVector().removeAllElements();
         revalidate();
 
-        ArrayList<Matricula> matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.getServicio().darMatriculas();
+        ArrayList<Matricula> matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.darMatriculas();
 
         for (int i = 0; i < matriculas.size(); i++) {
             Vector fila = new Vector();
@@ -122,11 +123,8 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            cambiarDatosTabla();
-        } catch (Exception_Exception ex) {
-            Logger.getLogger(JDialogListarMatriculasTodas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        cambiarDatosTabla();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

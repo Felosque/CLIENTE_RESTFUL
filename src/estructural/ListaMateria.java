@@ -19,12 +19,12 @@ public class ListaMateria {
         this.Materia = new ArrayList<>();
     }
     
-    public ArrayList<Materia> getEstudiantes() {
+    public ArrayList<Materia> getMateria() {
         if(Materia == null) return new ArrayList<>();
         else return Materia;
     }
 
-    public void setEstudiantes(ArrayList<Materia> pMateria) {
+    public void setMateria(ArrayList<Materia> pMateria) {
         this.Materia = pMateria;
     }
     

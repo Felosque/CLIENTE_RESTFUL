@@ -5,6 +5,7 @@
  */
 package gui;
 
+import estructural.Estudiante;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -37,33 +38,29 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         setSize(new Dimension(500, 401));
     }
     
-    public ArrayList<Estudiante> getEstudiantes() throws Exception_Exception
+    public ArrayList<Estudiante> getEstudiantes()
     {
-        return (ArrayList<Estudiante>) ServicioLocalEstudiante.getServicio().darEstudiantes();
+        return (ArrayList<Estudiante>) ServicioLocalEstudiante.darEstudiantes();
     }
     
-    public Estudiante buscarEstudiante(String identificacion) throws Exception_Exception
+    public Estudiante buscarEstudiante(String identificacion)
     {
-        return (Estudiante) ServicioLocalEstudiante.getServicio().buscarEstudiante(identificacion);
+        return (Estudiante) ServicioLocalEstudiante.buscarEstudiante(identificacion);
     }
     
-    public void registrarEstudiante(Estudiante pEstudiante) throws Exception_Exception
+    public void registrarEstudiante(Estudiante pEstudiante)
     {
-        ServicioLocalEstudiante.getServicio().insertarEstudiante(pEstudiante);
+        ServicioLocalEstudiante.insertarEstudiante(pEstudiante);
     }
     
-    public void actualizarEstudiante(String pDocumento, Estudiante pEstudiante) throws Exception_Exception
+    public void actualizarEstudiante(Estudiante pEstudiante)
     {
-        try{
-            ServicioLocalEstudiante.getServicio().actualizarEstudiante(pDocumento, pEstudiante);
-        }catch(Exception_Exception e){
-            throw e;
-        }
+        ServicioLocalEstudiante.actualizarEstudiante(pEstudiante);
     }
     
-    public void borrarEstudiante(String pDocumento) throws Exception_Exception    
+    public void borrarEstudiante(String pDocumento)   
     {
-        ServicioLocalEstudiante.getServicio().eliminarEstudiante(pDocumento);
+        ServicioLocalEstudiante.eliminarEstudiante(pDocumento);
     }
     
     public void uiVerLista() throws RemoteException
@@ -197,16 +194,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea buscar:", "Buscar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
                 Estudiante estudiante;
-                try {
-                    estudiante = this.buscarEstudiante(identificacion);
-                    if(estudiante != null){
-                    this.uiVisualizarEstudiante(estudiante);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
-                    }
-                } catch (Exception_Exception ex) {
-                    
+                estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                this.uiVisualizarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                 }
             }
         }
@@ -216,32 +209,24 @@ public class GUIPrincipal extends JFrame implements ActionListener{
         else if(e.getSource() == mnEstEliminar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea eliminar:", "Eliminar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
-                try{
-                    Estudiante estudiante = this.buscarEstudiante(identificacion);
-                    if(estudiante != null){
-                        this.uiBorrarEstudiante(estudiante);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
-                    }
-                } catch (Exception_Exception ex) {
-                    
+                Estudiante estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                    this.uiBorrarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                 }
             }
         }
         else if(e.getSource() == mnEstActualizar){
             String identificacion = JOptionPane.showInputDialog(this, "Digite el numero de identificación del estudiante que desea actualizar:", "Actualizar Estudiante", JOptionPane.WARNING_MESSAGE);
             if(identificacion != null){
-                try{
-                    Estudiante estudiante = this.buscarEstudiante(identificacion);
-                    if(estudiante != null){
-                        this.uiModificarEstudiante(estudiante);
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
-                    }
-                } catch (Exception_Exception ex) {
-                    
+                Estudiante estudiante = this.buscarEstudiante(identificacion);
+                if(estudiante != null){
+                    this.uiModificarEstudiante(estudiante);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El estudiante no se ha encontrado en la base de datos.");
                 }
             }
         }
@@ -281,38 +266,22 @@ public class GUIPrincipal extends JFrame implements ActionListener{
             }
         }
         else if(e.getSource() == mnGraficaMateria){
-            try {
-                JDialogGraficosMatricula dialog = new JDialogGraficosMatricula( ServicioLocalExtra.getServicio().darCantidadMateriasPorGradoCursando());
-                dialog.setVisible(true);
-            } catch (servicioWebExtra.Exception_Exception ex) {
-                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            JDialogGraficosMatricula dialog = new JDialogGraficosMatricula( ServicioLocalMatricula.darCantidadMateriasPorGradoCursado());
+            dialog.setVisible(true);
         }
         else if(e.getSource() == mnListarMatriculas){
-            try {
-                JDialogListarMatriculasTodas dialog = new JDialogListarMatriculasTodas();
-                dialog.setVisible(true);
-            } catch (servicioWebMatriculas.Exception_Exception ex) {
-                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            JDialogListarMatriculasTodas dialog = new JDialogListarMatriculasTodas();
+            dialog.setVisible(true);
         }
         else if(e.getSource() == mnEstGrafica){
-            try{
-                JDialogGraficos dialogoGrafica = new JDialogGraficos(ServicioLocalEstudiante.getServicio().cantidadEstudiantesPorGenero());
-                dialogoGrafica.setVisible(true);
-            } catch (Exception_Exception ex) {
-                    
-            }
+            JDialogGraficos dialogoGrafica = new JDialogGraficos(ServicioLocalEstudiante.cantidadEstudiantesPorGenero());
+            dialogoGrafica.setVisible(true);
         }
         else if(e.getSource() == mnVerPromedio){
             JDialogBuscarEstudiante dia;
-            try {
-                dia = new JDialogBuscarEstudiante(null, 3);
-                dia.ponerPadreFrame(this);
-                dia.setVisible(true);
-            } catch (RemoteException ex) {
-                Logger.getLogger(GUIPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            dia = new JDialogBuscarEstudiante(null, 3);
+            dia.ponerPadreFrame(this);
+            dia.setVisible(true);
         }
         else if(e.getSource() == mnAyuda){
             JOptionPane.showMessageDialog(this,"Desarrollado por:\n\n- Alejandro Luna Miranda\n- Luis Felipe Londoño\n\n\tUNIVERSIDAD DE IBAGUÉ\n\t\t©©©©©© 2020 ©©©©©©");

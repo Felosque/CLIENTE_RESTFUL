@@ -6,8 +6,8 @@
 package gui;
 
 import constantes.RequestJson;
+import estructural.Estudiante;
 import estructural.Matricula;
-import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -158,17 +158,9 @@ public class GUIPanelActMatricula extends javax.swing.JPanel {
             }catch(NumberFormatException ex){
                 JOptionPane.showMessageDialog(this, "Debe ser un formato valido de nota");
             }
-                RequestJson.sendRequest(matricula.toJSON(), URLMatricula.actualizarMatricula);
+                ServicioLocalMatricula.actualizarMatricula(matricula);
                 JOptionPane.showMessageDialog(this, "¡Se actualizó la matricula correctamente!");
-                try {
-                try {
-                    padre.cambiarDatosTabla(0);
-                } catch (Exception_Exception ex) {
-                    Logger.getLogger(GUIPanelActMatricula.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                } catch (servicioWebMaterias.Exception_Exception ex) {
-                    Logger.getLogger(GUIPanelActMatricula.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                padre.cambiarDatosTabla(0);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
