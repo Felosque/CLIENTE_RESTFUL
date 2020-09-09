@@ -1,12 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import constantes.RequestJson;
 import estructural.ListaMatricula;
@@ -23,6 +26,7 @@ public class ServicioLocalMatricula {
     public static final String matricularEstudiante = defaultURL + "matricularEstudiante";
     public static final String darMatriculas = defaultURL + "darMatriculas";
     public static final String darMatriculasEstudiante = defaultURL + "darMatriculasEstudiante";
+    public static final String darMatriculasPorEstado = defaultURL + "darMatriculasPorEstado";
     public static final String darMatriculasPorFecha = defaultURL + "darMatriculasPorFecha";
     public static final String darCantidadMateriasPorGradoCursado = defaultURL + "darCantidadMateriasPorGradoCursado";
     public static final String actualizarMatricula = defaultURL + "actualizarMatricula";
@@ -43,7 +47,7 @@ public class ServicioLocalMatricula {
     }
     
     public static int actualizarMatricula(Matricula pMatricula){
-        return RequestJson.sendRequest(pMatricula.toJSON(), actualizarMatricula, RequestJson.PUT);
+            return RequestJson.sendRequest(pMatricula.toJSON(), actualizarMatricula, RequestJson.PUT);
     }
     
     public static int borrarMatriculaCodigo(String pCodigo){
@@ -53,25 +57,61 @@ public class ServicioLocalMatricula {
     
     public static ArrayList<Matricula> darMatriculasEstudiante(String pDocumento){
         String peticion = darMatriculasEstudiante + "?documento=" + pDocumento;
-        String matriculasJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String matriculasJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
-        ListaMatricula matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
-        if (matriculas == null) return new ArrayList<>();
-        else return matriculas.getMatricula();
+        ListaMatricula matriculas = new ListaMatricula();
+        try{
+            matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
+            return matriculas.getMatricula();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Matricula> matricula = new ArrayList<>();
+            StringBuilder matriculaJSON = new StringBuilder(matriculasJSON);
+            String miMatri = matriculaJSON.substring(13, matriculaJSON.length() - 2);
+            Matricula matri = gson.fromJson(miMatri, Matricula.class);
+            matricula.add(matri);
+            return matricula;
+        }
+    }
+    
+    public static ArrayList<Matricula> darMatriculasPorEstado(String pEstado){
+        String peticion = darMatriculasPorEstado + "?estado=" + pEstado;
+        String matriculasJSON = RequestJson.getRequest(peticion, RequestJson.GET);
+        Gson gson = new Gson();
+        ListaMatricula matriculas = new ListaMatricula();
+        try{
+            matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
+            return matriculas.getMatricula();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Matricula> matricula = new ArrayList<>();
+            StringBuilder matriculaJSON = new StringBuilder(matriculasJSON);
+            String miMatri = matriculaJSON.substring(13, matriculaJSON.length() - 2);
+            Matricula matri = gson.fromJson(miMatri, Matricula.class);
+            matricula.add(matri);
+            return matricula;
+        }
     }
     
     public static ArrayList<Matricula> darMatriculasEstudianteGrado(String pDocumento, String pGrado){
-        String peticion = darMatriculasEstudianteGrado + "?documento=" + pDocumento + "?grado=" + pGrado;
-        String matriculasJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String peticion = darMatriculasEstudianteGrado + "?documento=" + pDocumento + "&grado=" + pGrado;
+        String matriculasJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
-        ListaMatricula matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
-        if (matriculas == null) return new ArrayList<>();
-        else return matriculas.getMatricula();
+        ListaMatricula matriculas = new ListaMatricula();
+        try{
+            matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
+            return matriculas.getMatricula();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Matricula> matricula = new ArrayList<>();
+            StringBuilder matriculaJSON = new StringBuilder(matriculasJSON);
+            String miMatri = matriculaJSON.substring(13, matriculaJSON.length() - 2);
+            Matricula matri = gson.fromJson(miMatri, Matricula.class);
+            matricula.add(matri);
+            return matricula;
+        }
     }
     
     public static Matricula darMatriculaCodigo(String pCodigo){
         String peticion = darMatriculaCodigo + "?codigo=" + pCodigo;
-        String matriculaJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String matriculaJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         Matricula matri = gson.fromJson(matriculaJSON, Matricula.class);
         return matri;
@@ -79,7 +119,7 @@ public class ServicioLocalMatricula {
     
     public static double darPromedioEstudiante(String pDocumento){
         String peticion = darPromedioEstudiante + "?documento=" + pDocumento;
-        String cantidadJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String cantidadJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         JsonObject jobj = new Gson().fromJson(cantidadJSON, JsonObject.class);
         String cantidad = jobj.get("respuesta").getAsString();
         return Double.parseDouble(cantidad);
@@ -87,17 +127,26 @@ public class ServicioLocalMatricula {
     
     public static ArrayList<Matricula> darMatriculas(){
         String peticion = darMatriculas;
-        String matriculasJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String matriculasJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
-        ListaMatricula matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
-        if (matriculas == null) return new ArrayList<>();
-        else return matriculas.getMatricula();
+        ListaMatricula matriculas = new ListaMatricula();
+        try{
+            matriculas = gson.fromJson(matriculasJSON, ListaMatricula.class);
+            return matriculas.getMatricula();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Matricula> matricula = new ArrayList<>();
+            StringBuilder matriculaJSON = new StringBuilder(matriculasJSON);
+            String miMatri = matriculaJSON.substring(13, matriculaJSON.length() - 2);
+            Matricula matri = gson.fromJson(miMatri, Matricula.class);
+            matricula.add(matri);
+            return matricula;
+        }
     }
     
     
     public static ArrayList<Integer> darCantidadMateriasPorGradoCursado(){
         String peticion = darCantidadMateriasPorGradoCursado;
-        String matriculasJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String matriculasJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         ArrayList<Integer> materiasPorGrado = gson.fromJson(matriculasJSON, new TypeToken<ArrayList<Integer>>(){}.getType());
         return materiasPorGrado;
@@ -105,7 +154,7 @@ public class ServicioLocalMatricula {
 
     public static int cantidadMatriculasRegistradas(){
         String peticion = cantidadMatriculasRegistradas;
-        String cantidadJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String cantidadJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         JsonObject jobj = new Gson().fromJson(cantidadJSON, JsonObject.class);
         String cantidad = jobj.get("respuesta").getAsString();
         return Integer.parseInt(cantidad);

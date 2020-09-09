@@ -1,16 +1,15 @@
+/*
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
+ */
 package estructural;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import constantes.UtilitiesFunctions;
-import static constantes.UtilitiesFunctions.gregorianStringToDate;
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.xml.datatype.XMLGregorianCalendar;
 
-public class Matricula implements Serializable{
+public class Matricula{
     
     private int codigo;
     

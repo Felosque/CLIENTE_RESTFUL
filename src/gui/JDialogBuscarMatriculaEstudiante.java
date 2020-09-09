@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package gui;
 
@@ -10,8 +12,6 @@ import estructural.Matricula;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ServicioLocalMateria;
@@ -33,7 +33,7 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
     private int modo;
             
     //Ver matriculas = 0, Borrar Matricula = 1, Actualizar Matricula = 2
-    public JDialogBuscarMatriculaEstudiante(int pModo) throws RemoteException {
+    public JDialogBuscarMatriculaEstudiante(int pModo) throws RemoteException{
         modo = pModo;
         estudiante = null;
         initComponents();
@@ -84,33 +84,37 @@ public class JDialogBuscarMatriculaEstudiante extends javax.swing.JFrame {
             modelo.getDataVector().removeAllElements();
             revalidate();
             
-            if(pGrado != 0){
-                matriculas = (ArrayList<Matricula>)ServicioLocalMatricula.darMatriculasEstudianteGrado(estudiante.getDocumentoIdentificacion(), ""+pGrado);
-            }else{
-                matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.darMatriculasEstudiante(estudiante.getDocumentoIdentificacion());
-            }
-            for (int i = 0; i < matriculas.size(); i++) {
-                Vector fila = new Vector();
-                fila.add(matriculas.get(i).getCodigo());
-                fila.add(ServicioLocalMateria.darMateriaPorCodigo(""+matriculas.get(i).getPkMateria()).getNombre());
-                fila.add(matriculas.get(i).getNotaDefinitiva());
-                fila.add(matriculas.get(i).getFechaInscripcion());
-                fila.add(matriculas.get(i).getFechaInicio());
-                fila.add(matriculas.get(i).getFechaFinal());
-                String inf = "";
-                if(matriculas.get(i).getEstado() == 0){
-                    inf = "Matriculada";
-                }else if(matriculas.get(i).getEstado() == 1){
-                    inf = "Cursando";
-                }else if(matriculas.get(i).getEstado() == 2){
-                    inf = "Reprobada";
-                }else if(matriculas.get(i).getEstado() == 3){
-                    inf = "Aprobada";
+            try{
+                if(pGrado != 0){
+                    matriculas = ServicioLocalMatricula.darMatriculasEstudianteGrado(estudiante.getDocumentoIdentificacion(), ""+pGrado);
+                }else{
+                    matriculas = ServicioLocalMatricula.darMatriculasEstudiante(estudiante.getDocumentoIdentificacion());
                 }
-                fila.add(inf);
-                modelo.addRow(fila);
+                for (int i = 0; i < matriculas.size(); i++) {
+                    Vector fila = new Vector();
+                    fila.add(matriculas.get(i).getCodigo());
+                    fila.add(ServicioLocalMateria.darMateriaPorCodigo(""+matriculas.get(i).getPkMateria()).getNombre());
+                    fila.add(matriculas.get(i).getNotaDefinitiva());
+                    fila.add(matriculas.get(i).getFechaInscripcion());
+                    fila.add(matriculas.get(i).getFechaInicio());
+                    fila.add(matriculas.get(i).getFechaFinal());
+                    String inf = "";
+                    if(matriculas.get(i).getEstado() == 0){
+                        inf = "Matriculada";
+                    }else if(matriculas.get(i).getEstado() == 1){
+                        inf = "Cursando";
+                    }else if(matriculas.get(i).getEstado() == 2){
+                        inf = "Reprobada";
+                    }else if(matriculas.get(i).getEstado() == 3){
+                        inf = "Aprobada";
+                    }
+                    fila.add(inf);
+                    modelo.addRow(fila);
+                }
+                 repaint();
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this, "No se han encontrado matriculas en: " + jcGrado.getSelectedItem().toString());
             }
-             repaint();
         }
        
     }

@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package model;
 
@@ -33,7 +35,7 @@ public class ServicioLocalMateria {
     
     public static Materia darMateriaPorCodigo(String pCodigo){
         String peticion = darMateriaPorCodigo + "?codigo=" + pCodigo;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         Materia materia = gson.fromJson(estudianteJSON, Materia.class);
         return materia;
@@ -41,7 +43,7 @@ public class ServicioLocalMateria {
     
     public static ArrayList<Materia> darMateriasPorGrado(String pGrado){
         String peticion = darMateriasPorGrado + "?grado=" + pGrado;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         ListaMateria materias = gson.fromJson(estudianteJSON, ListaMateria.class);
         if (materias == null) return new ArrayList<>();
@@ -50,7 +52,7 @@ public class ServicioLocalMateria {
     
     public static ArrayList<Materia> darMaterias(){
         String peticion = darMaterias;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         ListaMateria materias = gson.fromJson(estudianteJSON, ListaMateria.class);
         if (materias == null) return new ArrayList<>();
@@ -59,7 +61,7 @@ public class ServicioLocalMateria {
     
     public static int cantidadMateriasRegistradas(){
         String peticion = cantidadMateriasRegistradas;
-        String cantidadJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String cantidadJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         JsonObject jobj = new Gson().fromJson(cantidadJSON, JsonObject.class);
         String cantidad = jobj.get("respuesta").getAsString();
         return Integer.parseInt(cantidad);

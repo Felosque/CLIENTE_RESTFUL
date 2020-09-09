@@ -1,11 +1,16 @@
+/*
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
+ */
 package estructural;
 
 import com.google.gson.Gson;
 import static constantes.UtilitiesFunctions.*;
-import java.io.Serializable;
-import java.util.Date;
 
-public class Estudiante implements Serializable{
+public class Estudiante{
     
     private String nombres;
     

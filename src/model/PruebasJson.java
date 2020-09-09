@@ -34,6 +34,8 @@ public class PruebasJson {
         //System.out.println("" + materias.toString());
         ///System.out.println("" + ServicioLocalMateria.darMaterias());
         
+        
+        
         /*
         Estudiante estu = new Estudiante();
         try{
@@ -54,8 +56,13 @@ public class PruebasJson {
         
         //System.out.println("" + ServicioLocalMatricula.darMatriculaCodigo(""+45).toString());
         
-        /* RECIBIR ARRAYLIST 
-        ArrayList<Matricula> mat = ServicioLocalMatricula.darMatriculas();
+        ArrayList<Estudiante> estud = ServicioLocalEstudiante.darEstudiantesPorNombre("LU");
+        for (int i = 0; i < estud.size(); i++) {
+            System.out.println(""+ estud.get(i).toString());
+        }
+        //RECIBIR ARRAYLIST 
+        /*
+        ArrayList<Matricula> mat = ServicioLocalMatricula.darMatriculasPorEstado(""+2);
         if(!mat.isEmpty()){
             System.out.println(""+ mat.size());
             for (int i = 0; i < mat.size(); i++) {

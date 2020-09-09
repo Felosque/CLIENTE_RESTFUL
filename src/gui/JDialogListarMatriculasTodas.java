@@ -1,20 +1,16 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package gui;
 
 import estructural.Matricula;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ServicioLocalEstudiante;
-import model.ServicioLocalMateria;
 import model.ServicioLocalMatricula;
 
 /**
@@ -28,7 +24,7 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
      */
     public JDialogListarMatriculasTodas(){
         initComponents();
-        cambiarDatosTabla();
+        cambiarDatosTabla(ServicioLocalMatricula.darMatriculas());
         setTitle("Lista de matriculas");
         setLocationRelativeTo(null);
         setSize(810, 520);
@@ -36,13 +32,11 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
     }
 
     
-    private void cambiarDatosTabla(){
+    private void cambiarDatosTabla(ArrayList<Matricula> matriculas){
 
         DefaultTableModel modelo = (DefaultTableModel)tablaDatos.getModel();
         modelo.getDataVector().removeAllElements();
         revalidate();
-
-        ArrayList<Matricula> matriculas = (ArrayList<Matricula>) ServicioLocalMatricula.darMatriculas();
 
         for (int i = 0; i < matriculas.size(); i++) {
             Vector fila = new Vector();
@@ -86,9 +80,12 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDatos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        busquedaDocumento = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        estadoBusqueda = new javax.swing.JComboBox();
+        jButton1 = new javax.swing.JButton();
 
         jToolBar1.setRollover(true);
 
@@ -111,7 +108,26 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaDatos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 760, 350));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 760, 310));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Operaciones"));
+
+        jLabel2.setText("Filtrar por estudiante (documento):");
+
+        busquedaDocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                busquedaDocumentoKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setText("Filtrar por estado:");
+
+        estadoBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Estado", "Cursando", "Reprobada", "Aprobada" }));
+        estadoBusqueda.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                estadoBusquedaItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Actualizar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -119,27 +135,70 @@ public class JDialogListarMatriculasTodas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, -1, -1));
 
-        jLabel2.setText("Filtrar por estudiante (documento):");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 130, -1));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(busquedaDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(estadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 4, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(busquedaDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(estadoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 760, 50));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        cambiarDatosTabla();
+        cambiarDatosTabla(ServicioLocalMatricula.darMatriculas());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void busquedaDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_busquedaDocumentoKeyReleased
+
+        
+        cambiarDatosTabla(ServicioLocalMatricula.darMatriculasEstudiante(busquedaDocumento.getText()));
+    }//GEN-LAST:event_busquedaDocumentoKeyReleased
+
+    private void estadoBusquedaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_estadoBusquedaItemStateChanged
+        
+        if(estadoBusqueda.getSelectedIndex() != 0){
+            cambiarDatosTabla(ServicioLocalMatricula.darMatriculasPorEstado(""+estadoBusqueda.getSelectedIndex()));
+        }
+    }//GEN-LAST:event_estadoBusquedaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField busquedaDocumento;
+    private javax.swing.JComboBox estadoBusqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tablaDatos;
     // End of variables declaration//GEN-END:variables

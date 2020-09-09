@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package gui;
 
@@ -40,12 +42,12 @@ public class GUIPrincipal extends JFrame implements ActionListener{
     
     public ArrayList<Estudiante> getEstudiantes()
     {
-        return (ArrayList<Estudiante>) ServicioLocalEstudiante.darEstudiantes();
+        return ServicioLocalEstudiante.darEstudiantes();
     }
     
     public Estudiante buscarEstudiante(String identificacion)
     {
-        return (Estudiante) ServicioLocalEstudiante.buscarEstudiante(identificacion);
+        return ServicioLocalEstudiante.buscarEstudiante(identificacion);
     }
     
     public void registrarEstudiante(Estudiante pEstudiante)

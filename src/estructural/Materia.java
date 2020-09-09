@@ -1,8 +1,14 @@
+/*
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
+ */
 package estructural;
 import com.google.gson.Gson;
-import java.io.Serializable;
 
-public class Materia implements Serializable{
+public class Materia{
     
     private int codigo;
     

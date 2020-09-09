@@ -1,12 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package model;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import constantes.RequestJson;
 import estructural.Estudiante;
 import estructural.ListaEstudiante;
@@ -50,7 +53,7 @@ public class ServicioLocalEstudiante {
     
      public static Estudiante buscarEstudiante(String pDocumento){ //Funcionando
         String peticion = buscarEstudiante + "?documento=" + pDocumento;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
         Estudiante estu = gson.fromJson(estudianteJSON, Estudiante.class);
         return estu;
@@ -59,11 +62,19 @@ public class ServicioLocalEstudiante {
     
     public static ArrayList<Estudiante> darEstudiantes(){ //Funcionando
         String peticion = darEstudiantes;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
-        ListaEstudiante estudiantes = gson.fromJson(estudianteJSON, ListaEstudiante.class);
-        if (estudiantes == null) return new ArrayList<>();
-        else return estudiantes.getEstudiantes();
+        try{
+            ListaEstudiante estudiantes = gson.fromJson(estudianteJSON, ListaEstudiante.class);
+            return estudiantes.getEstudiantes();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Estudiante> estu = new ArrayList<>();
+            StringBuilder estudi = new StringBuilder(estudianteJSON);
+            String miEstudi = estudi.substring(14, estudi.length() -2);
+            Estudiante estudiante =  gson.fromJson(miEstudi, Estudiante.class);
+            estu.add(estudiante);
+            return estu;
+        }
     }
     
     public static ArrayList<Integer> cantidadEstudiantesPorGenero(){
@@ -72,15 +83,24 @@ public class ServicioLocalEstudiante {
     
     public static ArrayList<Estudiante> darEstudiantesPorNombre(String pNombre){ //Funcionando
         String peticion = darEstudiantesPorNombre + "?nombre=" + pNombre;
-        String estudianteJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String estudianteJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         Gson gson = new Gson();
-        ListaEstudiante estudiantes = gson.fromJson(estudianteJSON, ListaEstudiante.class);
-        return estudiantes.getEstudiantes();
+        try{
+            ListaEstudiante estudiantes = gson.fromJson(estudianteJSON, ListaEstudiante.class);
+            return estudiantes.getEstudiantes();
+        }catch(JsonSyntaxException ex){
+            ArrayList<Estudiante> estu = new ArrayList<>();
+            StringBuilder estudi = new StringBuilder(estudianteJSON);
+            String miEstudi = estudi.substring(14, estudi.length() -2);
+            Estudiante estudiante =  gson.fromJson(miEstudi, Estudiante.class);
+            estu.add(estudiante);
+            return estu;
+        }
     }
     
     public static int darGradoEstudiante(String pDocumento){ //Faltan condicionales
         String peticion = darGradoEstudiante + "documento?=" + pDocumento;
-        String cantidadJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String cantidadJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         JsonObject jobj = new Gson().fromJson(cantidadJSON, JsonObject.class);
         String cantidad = jobj.get("respuesta").getAsString();
         return Integer.parseInt(cantidad);
@@ -88,7 +108,7 @@ public class ServicioLocalEstudiante {
     
     public static int cantidadEstudiantesRegistrados(){ //Funcionando
         String peticion = cantidadEstudiantesRegistrados;
-        String cantidadJSON = RequestJson.recibirPeticion(peticion, RequestJson.GET);
+        String cantidadJSON = RequestJson.getRequest(peticion, RequestJson.GET);
         JsonObject jobj = new Gson().fromJson(cantidadJSON, JsonObject.class);
         String cantidad = jobj.get("respuesta").getAsString();
         return Integer.parseInt(cantidad);

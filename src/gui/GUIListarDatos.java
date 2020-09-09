@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    CODIGO PROPIEDAD DE 
+            FELIPE LONDOÑO: (https://github.com/Felosque)
+            ALEJANDRO LUNA: (https://github.com/AlejoFront)
+    
+    Agradecimientos a la comunidad de INTERNET por todos sus ejemplos y hacer mucho más facil el apredizaje.
  */
 package gui;
 
@@ -141,8 +143,8 @@ public class GUIListarDatos extends JPanel implements KeyListener{
             List<Estudiante> est = new ArrayList<Estudiante>();
             est = ServicioLocalEstudiante.darEstudiantesPorNombre(busqueda.getText());
             cambiarDatosTabla((ArrayList<Estudiante>) est);
-        } catch (Exception ex) {
-            Logger.getLogger(GUIListarDatos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            
         }
         System.out.println(busqueda.getText());
         //ordenador.setRowFilter(RowFilter.regexFilter(busqueda.getText(), 1));
